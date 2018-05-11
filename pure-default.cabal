@@ -1,0 +1,22 @@
+name:                pure-default
+version:             0.7.0.0
+synopsis:
+homepage:            github.com/grumply/pure-default
+license:             BSD3
+license-file:        LICENSE.md
+author:              Sean Mackenzie
+maintainer:          sean@grump.ly
+category:            Web
+build-type:          Simple
+cabal-version:       >=1.10
+
+library
+  build-depends:
+    base >= 4.8 && < 5
+
+  hs-source-dirs: src
+
+  exposed-modules:
+    Pure.Data.Default
+
+  default-language: Haskell2010
