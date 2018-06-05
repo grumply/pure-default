@@ -12,10 +12,6 @@ import Data.Word
 
 import GHC.Generics
 
-infixl 9 ?
-(?) :: Bool -> a -> a -> a
-(?) x t e = if x then t else e
-
 class Default a where
   def :: a
   default def :: (Generic a, GDefault (Rep a)) => a
@@ -70,7 +66,7 @@ instance Default Float where def = 0
 instance Default Double where def = 0
 instance (Integral a) => Default (Ratio a) where def = 0
 instance (Default a,RealFloat a) => Default (Complex a) where def = def :+ def
-instance Default r => Default (x -> r) where def = const def
+instance {-# OVERLAPPABLE #-} Default r => Default (x -> r) where def = const def
 instance Default a => Default (IO a) where def = return def
 instance Default a => Default (Dual a) where def = Dual def
 
@@ -86,6 +82,9 @@ instance (Default a, Default b, Default c, Default d, Default e, Default f, Defa
 -- instances
 class GDefault f where
   gdef :: f a
+
+instance GDefault V1 where
+  gdef = undefined
 
 instance GDefault U1 where
   gdef = U1
