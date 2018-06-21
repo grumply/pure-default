@@ -67,6 +67,7 @@ instance Default Double where def = 0
 instance (Integral a) => Default (Ratio a) where def = 0
 instance (Default a,RealFloat a) => Default (Complex a) where def = def :+ def
 instance {-# OVERLAPPABLE #-} Default r => Default (x -> r) where def = const def
+instance {-# OVERLAPPING #-} Default (a -> a) where def = id
 instance Default a => Default (IO a) where def = return def
 instance Default a => Default (Dual a) where def = Dual def
 
